@@ -1,0 +1,47 @@
+﻿<UserControl 
+    x:Class="GridTest.Views.MainView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm" 
+                      xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+                      xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+                      xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+                      xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+    xmlns:ViewModels="clr-namespace:GridTest.ViewModels"
+    mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="300">
+	<UserControl.DataContext>
+		<ViewModels:MainViewModel/>
+	</UserControl.DataContext>
+
+	<Grid>
+
+		<dxg:GridControl AutoGenerateColumns="AddNew" ItemsSource="{Binding Customers}"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FilterString="[Visits] >= 5 and [City] = 'Los Angeles'">
+
+
+			<dxg:GridControl.Columns>
+				<dxg:GridColumn FieldName="Name" IsSmart="True"/>
+				<dxg:GridColumn FieldName="City" IsSmart="True">			<!--city 使用ComboBox进行配置-->
+					<dxg:GridColumn.EditSettings>
+						<dxe:ComboBoxEditSettings ItemsSource="{Binding Cities}"/>
+					</dxg:GridColumn.EditSettings>
+				</dxg:GridColumn>
+				<dxg:GridColumn FieldName="Visits" IsSmart="True" SortOrder="Ascending" />  <!--排序-->
+				<dxg:GridColumn FieldName="Birthday" IsSmart="True">		<!--自定义生日的显示格式-->
+					<dxg:GridColumn.EditSettings>
+						<dxe:DateEditSettings Mask="m" MaskUseAsDisplayFormat="True"/>
+					</dxg:GridColumn.EditSettings>
+				</dxg:GridColumn>
+
+
+			</dxg:GridControl.Columns>
+			<dxg:GridControl.View>
+				<dxg:TableView />
+			</dxg:GridControl.View>
+
+		</dxg:GridControl>
+
+
+	</Grid>
+</UserControl>
